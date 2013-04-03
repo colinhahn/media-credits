@@ -104,3 +104,5 @@ add_filter( 'attachment_fields_to_save', 'cjh_mc_attachment_field_credit_save', 
 }
 
 add_shortcode("mediacredit", "cjh_mc_mediacredit"); 
+
+?>
