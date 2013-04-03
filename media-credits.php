@@ -1,19 +1,15 @@
 <?php
 /**
  * Plugin Name: Media Credits
- * Plugin URI: http://authorname.com/plugin/
+ * Plugin URI: https://github.com/colinhahn/media-credits
  * Description: Stores and displays media credit metadata
  * Author: Colin J. Hahn
  * Version: 1.0
- * Author URI: http://www.authorname.com
  */
-
-// UPDATE URLS!
 
 /**
  * Add metadata fields to media uploader
- * New fields: 	cjh_mc_author_name
- *				cjh_mc_author_url
+ * New fields: 	cjh_mc_author_name, cjh_mc_author_url
  *
  * @param $form_fields array, fields to include in attachment form
  * @param $post object, attachment record in database
@@ -42,8 +38,7 @@ add_filter( 'attachment_fields_to_edit', 'cjh_mc_attachment_field_credit', 10, 2
 
 /**
  * Save metadata fields in media uploader
- * New fields:	cjh_mc_author_name
- *				cjh_mc_author_url
+ * New fields:	cjh_mc_author_name, cjh_mc_author_url
  *
  * @param $post array, the post data for database
  * @param $attachment array, attachment fields from $_POST form
@@ -95,8 +90,8 @@ add_filter( 'attachment_fields_to_save', 'cjh_mc_attachment_field_credit_save', 
     		$cjh_mc_safe_url = esc_url( $cjh_mc_current_author_url );
     		$cjh_mc_media_credit_box = '<div class="media-credit">Media by <a href="'.$cjh_mc_safe_url.'">'.$cjh_mc_safe_url.'</a></div>';
     	} else { // Both URL and author
-			$cjh_mc_safe_url = esc_url( $cjh_mc_current_author_url );
-			$cjh_mc_media_credit_box = '<div class="media-credit">Media by <a href="'.$cjh_mc_safe_url.'">'.$cjh_mc_current_author_name.'</a></div>';
+		$cjh_mc_safe_url = esc_url( $cjh_mc_current_author_url );
+		$cjh_mc_media_credit_box = '<div class="media-credit">Media by <a href="'.$cjh_mc_safe_url.'">'.$cjh_mc_current_author_name.'</a></div>';
     	}
     }
 
