@@ -52,7 +52,7 @@ add_filter( 'attachment_fields_to_edit', 'cjh_mc_attachment_field_credit', 10, 2
 
 function cjh_mc_attachment_field_credit_save( $post, $attachment ) {
 	if( isset( $attachment['cjh_mc_author_name'] ) )
-		update_post_meta( $post['ID'], 'cjh_mc_author_name', $attachment['cjh_mc_author_name'] );
+		update_post_meta( $post['ID'], 'cjh_mc_author_name', sanitize_text_field( $attachment['cjh_mc_author_name'] ) );
 
 	if( isset( $attachment['cjh_mc_author_url'] ) )
 		update_post_meta( $post['ID'], 'cjh_mc_author_url', esc_url( $attachment['cjh_mc_author_url'] ) );
@@ -88,16 +88,15 @@ add_filter( 'attachment_fields_to_save', 'cjh_mc_attachment_field_credit_save', 
     	if ( strlen( trim( $cjh_mc_current_author_name ) ) == 0 ) { // No media metadata set
     		return null;
     	} else { // No URL, yes author
-    		$cjh_mc_media_credit = '<div class="media-credit">Media by '.$cjh_mc_current_author_name.'</div>';
+    		$cjh_mc_media_credit_box = '<div class="media-credit">Media by '.$cjh_mc_current_author_name.'</div>';
     	}
     } else {
     	if ( strlen( trim( $cjh_mc_current_author_name ) ) == 0 ) { // Yes URL, no author
-    		$cjh_mc_safe_url = esc_url( $cjh_mc_author_url );
-    		echo $cjh_mc_safe_url;
+    		$cjh_mc_safe_url = esc_url( $cjh_mc_current_author_url );
     		$cjh_mc_media_credit_box = '<div class="media-credit">Media by <a href="'.$cjh_mc_safe_url.'">'.$cjh_mc_safe_url.'</a></div>';
     	} else { // Both URL and author
-			$cjh_mc_safe_url = esc_url( $cjh_mc_author_url );
-			$cjh_mc_media_credit_box = '<div class="media-credit">Media by <a href="'.$cjh_mc_safe_url.'">'.$cjh_mc_author_name.'</a></div>';
+			$cjh_mc_safe_url = esc_url( $cjh_mc_current_author_url );
+			$cjh_mc_media_credit_box = '<div class="media-credit">Media by <a href="'.$cjh_mc_safe_url.'">'.$cjh_mc_current_author_name.'</a></div>';
     	}
     }
 
